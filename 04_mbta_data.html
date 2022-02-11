@@ -3,19 +3,40 @@
 <!-- --------------------------------- -->
 
 <script>
+// work with test data to avoid calling data too frequently
+// var testData = 
 
 // Request bus data from MBTA
 async function getBusLocations(){
 	// MBTA real-time data for bus route 1
 	const url = 'https://api-v3.mbta.com/vehicles?filter[route]=1&include=trip';
+
+	// await is for async functions only
+	var response = await fetch(url);
+	var json = await response.json();
+	return json;
 }
 
 // request data on a timer
 async function run(){
 	// request bus data
+	var buses = await getBusLocations();
+	
+	buses.data.forEach(function(bus){
+		var id = bus.id;
+		var lat = bus.attributes.latitude;
+		var lng = bus.attributes.longitude;
+		console.log(
+			'id:' + id +
+			'lat:' + lat +
+			'lng:' + lng
+		)
+	});
+	setTimeout(run, 15000);
 
-	// timer
-}
+	}
+
 run();
+getBusLocations();
 
 </script>
