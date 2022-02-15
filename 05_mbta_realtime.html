@@ -6,13 +6,16 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Add a default marker</title>
+<title>Route 1 Bus Tracker</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
 <style>
   body { margin: 0; padding: 0; }
   #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  .mapboxgl-popup {
+    max-width: 200px;
+  }
 </style>
 </head>
 <body>
@@ -20,7 +23,8 @@
 
 <script>
 
-// api token
+// access token
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpY2V6ZWhuZXIiLCJhIjoiY2t6ZnE2ZnAxM2p3ZTJwbmZ2aGpoYWMxNSJ9.gynnuXCts6TRkJFkGXR_UQ';
 
 // map instance
 var map = new mapboxgl.Map({
@@ -38,21 +42,45 @@ async function routeData(){
   return data;  
 }
 
-// array of buses, signature is {id: bus.id, marker: marker}
+// empty array of buses, signature is {id: bus.id, marker: marker}
 var buses = [];
+var oldBuses = [];
 
 // update bus positions on map
 async function move(){
-
   // request bus data
-
-  // loop through buses, update positions
-
- // timer
+  var buses = await routeData();
+	console.log(new Date());
+	console.log(buses);
+	
+  // remove old bus markers
+  if (oldBuses!==null) {
+    for (var i = 0; i <= oldBuses.length-1; i++) {
+      oldBuses[i].remove();
+    }
+  }
+	oldBuses = [];
+  
+  // loop through new buses, update positions
+  buses.data.forEach(function(bus){
+		var id = bus.attributes.label;
+		var lat = bus.attributes.latitude;
+		var lng = bus.attributes.longitude;
+		var marker = new mapboxgl.Marker()
+          .setLngLat([lng, lat])
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML(`<h3>Bus ID</h3><p>${id}</p>`)
+          )
+      		.addTo(map);
+    oldBuses.push(marker);
+  });
+	
+  //Timer
+  setTimeout(move, 15000);
 
 }
 move();
-
 </script>
  
 </body>

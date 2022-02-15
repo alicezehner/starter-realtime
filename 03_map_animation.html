@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Add a default marker</title>
+<title>Bus Stops - Route #</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
 
 <div class="map-overlay top">
   <button style="font-size: 2em" onclick="move()">
-    Show Route
+    Show Route #
   </button>
 </div>
  
@@ -65,17 +65,14 @@
   ];
 
   // animate marker
-  let counter = 0;
-  var walker = function() {
+  function move(){
+    setTimeout(() => {
       if (counter >= busStops.length) return;
       marker.setLngLat(busStops[counter]);
       counter++;
       move();
-  };
-
-  function move(){
-    setTimeout(walker, 1000);
-    }
+    }, 1000);
+  }
 
 </script>
  

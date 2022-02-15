@@ -14,29 +14,33 @@ async function getBusLocations(){
 	// await is for async functions only
 	var response = await fetch(url);
 	var json = await response.json();
-	return json;
+	return json.data;
 }
 
 // request data on a timer
 async function run(){
 	// request bus data
 	var buses = await getBusLocations();
+	console.log(new Date());
+	console.log(buses);
 	
 	buses.data.forEach(function(bus){
 		var id = bus.id;
 		var lat = bus.attributes.latitude;
 		var lng = bus.attributes.longitude;
+		var marker = new mapboxgl.Marker()
+      		.setLngLat([lng, lat])
+      		.addTo(map);
 		console.log(
 			'id:' + id +
 			'lat:' + lat +
 			'lng:' + lng
 		)
 	});
-	setTimeout(run, 15000);
-
-	}
+	//setTimeout(run, 15000);
+}
 
 run();
-getBusLocations();
+// getBusLocations();
 
 </script>
