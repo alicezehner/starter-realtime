@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Bus Stops - Route #</title>
+<title>Bus Stops - Route 4</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
 
 <div class="map-overlay top">
   <button style="font-size: 2em" onclick="move()">
-    Show Route #
+    Show Route #4
   </button>
 </div>
  
@@ -40,28 +40,29 @@
   var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-71.104081, 42.365554],
-      zoom: 14
+      center: [-71.031996, 42.345192],
+      zoom: 13
   });
 
   // map marker
   var marker = new mapboxgl.Marker()
-      .setLngLat([-71.092761, 42.357575])
+      .setLngLat([-71.031996, 42.345192])
       .addTo(map);
 
+  var counter = 0;
+
   const busStops = [
-      [-71.093729, 42.359244], 
-      [-71.094915, 42.360175],
-      [-71.095800, 42.360698],
-      [-71.099558, 42.362953],
-      [-71.103476, 42.365248],
-      [-71.106067, 42.366806],
-      [-71.108717, 42.368355],
-      [-71.110799, 42.369192],
-      [-71.113095, 42.370218],
-      [-71.115476, 42.372085],
-      [-71.117585, 42.373016],
-      [-71.118625, 42.374863]
+      [-71.031996, 42.345192],
+      [-71.034878, 42.346538],
+      [-71.042116, 42.350241],
+      [-71.047419, 42.352775],
+      [-71.053278, 42.354588],
+      [-71.054079, 42.355395],
+      [-71.056251, 42.357495],
+      [-71.056733, 42.358789],
+      [-71.057129, 42.360387],
+      [-71.057724, 42.361847],
+      [-71.062198, 42.364737]
   ];
 
   // animate marker
@@ -73,7 +74,6 @@
       move();
     }, 1000);
   }
-
 </script>
  
 </body>
